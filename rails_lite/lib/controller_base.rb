@@ -4,6 +4,7 @@ require 'active_support/inflector'
 require 'erb'
 require 'byebug'
 require_relative './session'
+require_relative './flash'
 
 class ControllerBase
   attr_reader :req, :res, :params
@@ -13,7 +14,11 @@ class ControllerBase
     @req = req
     @res = res
     @params = params.merge(req.params)
+    @flash = Flash.new(req)
+  end
 
+  def flash
+    @flash
   end
 
   # Helper method to alias @built_reponse
